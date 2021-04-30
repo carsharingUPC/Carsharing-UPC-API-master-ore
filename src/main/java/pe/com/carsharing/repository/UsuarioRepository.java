@@ -14,6 +14,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	
 	@Query("Select us from Usuario us where us.correo = :correo and us.password = :password")
 	Optional<Usuario> login(String correo, String password) throws Exception;
+
+	@Query("Select us from Usuario us where us.correo = :correo")
+	Optional<Usuario> loginEmail(String correo) throws Exception;
 	
 	@Query("Select us from Usuario us where us.esAdm = false")
 	List<Usuario> getCustomerUsers() throws Exception;
@@ -26,4 +29,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
 	@Query("Select us from Usuario us where us.celular = :celular")
 	Optional<Usuario> findBycelular(String celular) throws Exception;
+
 }

@@ -59,21 +59,6 @@ public class UsuarioRestController {
 		}
 	}
 
-	@ApiOperation(value = "EndPoint que permite obtener usuario por celular")
-	@GetMapping(path= "/celular/{celular}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Usuario> Getcelular(@PathVariable("celular") String celular){
-		try {
-			Optional<Usuario> cellphone = usuarioService.findBycelular(celular);
-			if (cellphone.isPresent()) {
-				return new ResponseEntity<Usuario>(cellphone.get(), HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
-		}
-	}
-
 	@ApiOperation(value = "EndPoint que permite grabar un usuario")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> nuevo(@RequestBody Usuario usuario) {
@@ -88,7 +73,7 @@ public class UsuarioRestController {
 		}
 	}
 
-	@ApiOperation(value = "EndPoint que permite actualizar un usuario")
+	@ApiOperation(value = "EndPoint que permite actualizar un usuario por su id")
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> actualizar(@PathVariable("id") Integer id, @RequestBody Usuario usuario) {
 		try {
@@ -107,8 +92,7 @@ public class UsuarioRestController {
 			return new ResponseEntity<Usuario>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
 	@DeleteMapping(path = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
 		try {
@@ -197,6 +181,7 @@ public class UsuarioRestController {
 			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 		}
 	}
+
 	
 	@ApiOperation(value = "EndPoint que permite activar un usuario por su id")
 	@GetMapping(path = "/{id}/activate", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -232,4 +217,25 @@ public class UsuarioRestController {
 			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 		}
 	}
+
+	@ApiOperation(value = "EndPoint que permite obtener usuario por celular")
+	@PostMapping(path= "/logemail", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario> logemail(@RequestBody Usuario user){
+		try {
+			String correo = user.getCorreo();
+			Optional<Usuario> login_email = usuarioService.loginEmail(correo);
+			if (login_email.isPresent()) {
+				return new ResponseEntity<Usuario>(login_email.get(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+
+	
+
+
 }

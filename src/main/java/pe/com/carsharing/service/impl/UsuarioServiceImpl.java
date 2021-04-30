@@ -50,6 +50,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
+	public Optional<Usuario> loginEmail(String correo) throws Exception {
+		return usuarioRepository.loginEmail(correo);
+	}
+
+	@Override
 	public List<Usuario> getCustomerUsers() throws Exception {
 		return usuarioRepository.getCustomerUsers();
 	}
@@ -68,4 +73,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Optional<Usuario> findBycelular(String celular) throws Exception {
 		return usuarioRepository.findBycelular(celular);
 	}
+
+	
 }

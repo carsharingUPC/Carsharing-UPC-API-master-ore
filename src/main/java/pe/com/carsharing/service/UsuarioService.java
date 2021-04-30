@@ -7,6 +7,7 @@ import pe.com.carsharing.model.Usuario;
 
 public interface UsuarioService extends CrudService<Usuario, Integer>{
 	Optional<Usuario> login(String correo, String password) throws Exception;
+	Optional<Usuario> loginEmail(String correo) throws Exception;
 	List<Usuario> getCustomerUsers() throws Exception;
 	List<Usuario> getCustomerUsersEnabled() throws Exception;
 	List<Usuario> getCustomerUsersDisabled() throws Exception;
